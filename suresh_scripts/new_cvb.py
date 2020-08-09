@@ -63,7 +63,7 @@ class tracker:
         # cv2.imshow("feed", gray)
         # cv2.imshow("diff", diff)
         cv2.imshow("image", image)
-        cv2.imshow("dilated", dilated)
+        # cv2.imshow("dilated", dilated)
         # cv2.imshow("dilated", dilated)
         
         frame1 = frame2
