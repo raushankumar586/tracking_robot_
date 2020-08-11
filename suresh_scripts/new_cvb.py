@@ -48,8 +48,10 @@ class tracker:
         blur = cv2.medianBlur(subtract_gray5, 5)
         _, thresh = cv2.threshold(blur, 20, 255, cv2.THRESH_BINARY)
         _, thresh40 = cv2.threshold(blur, 254, 255, cv2.THRESH_BINARY)
+        erosion = cv2.erode(thresh,None, iterations=3)
+        dialation_after_erosion = cv2.erode(erosion,None, iterations=3)
         dilated = cv2.dilate(thresh, None, iterations=3)
-        contours, _ = cv2.findContours(dilated, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)      
+        contours, _ = cv2.findContours(dialation_after_erosion, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)      
 
         for contour in contours:
             (x, y, w, h) = cv2.boundingRect(contour)
@@ -63,8 +65,8 @@ class tracker:
         # cv2.imshow("feed", gray)
         # cv2.imshow("diff", diff)
         cv2.imshow("image", image)
-        # cv2.imshow("dilated", dilated)
-        # cv2.imshow("dilated", dilated)
+        # cv2.imshow("erosion", erosion)
+        cv2.imshow("dialation_after_erosion", dialation_after_erosion)
         
         frame1 = frame2
         frame2 = cv_image
